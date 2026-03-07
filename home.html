@@ -15,10 +15,25 @@
     <!-- css -->
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
+    <!-- fontawsome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
+    <header class="navbar bg-white shadow-sm flex justify-between items-center p-4">
+        <div class="flex justify-between items-center gap-1">
+            <i class="fa-brands fa-github text-4xl"></i>
+            <h2 class="lg:text-2xl font-semibold">GitHub Issues Tracker</h2>
+        </div>
+        <div class="lg:flex gap-4">
+            <input type="text" placeholder="🔍 Search issues..." class="input input-bordered w-3/5 md:w-auto" />
+            <button class="btn btn-xs sm:btn-sm md:btn-md  btn-primary">+ New Issue</button>
+        </div>
+    </header>
 
+    
 </body>
 
 </html>
