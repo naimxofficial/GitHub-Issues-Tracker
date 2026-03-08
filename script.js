@@ -1,20 +1,23 @@
 let allIssues = [];
-
+const loadingSpinner = document.getElementById("loadingSpinner");
 
 async function loadIssues() {
-  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-  const data = await res.json();
-  allIssues = data.data;
-  displayIssues(allIssues);
-  updateCount(allIssues.length);
+    showLoading();
+    const res = await fetch(
+        "https://phi-lab-server.vercel.app/api/v1/lab/issues",
+    );
+    const data = await res.json();
+    allIssues = data.data;
+    displayIssues(allIssues);
+    updateCount(allIssues.length);
 }
 
 function displayIssues(data) {
-  const allIssuesContainer = document.getElementById("allIssuesContainer");
-  allIssuesContainer.innerHTML = "";
-  data.forEach((data) => {
-    const div = document.createElement("div");
-    div.innerHTML = `<div onclick = "loadModal(${data.id})" class="border-t-4 ${data.status === "open" ? "border-[#00A96E]" : "border-[#A855F7]"} rounded-sm p-4 space-y-3 bg-white drop-shadow-sm">
+    const allIssuesContainer = document.getElementById("allIssuesContainer");
+    allIssuesContainer.innerHTML = "";
+    data.forEach((data) => {
+        const div = document.createElement("div");
+        div.innerHTML = `<div onclick = "loadModal(${data.id})" class="border-t-4 ${data.status === "open" ? "border-[#00A96E]" : "border-[#A855F7]"} rounded-sm p-4 space-y-3 bg-white drop-shadow-sm">
                 <div class=" flex items-center justify-between ">
                     <img src="${data.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed- Status .png"}"  alt="">
                     <h2 class=" rounded-full py-2 px-5 font-medium text-xs ${data.priority === "high" ? "text-[#EF4444] bg-[#FEECEC]" : data.priority === "medium" ? "bg-[#FFF6D1] text-[#F59E0B]" : "bg-gray-200 text-gray-600"}">${data.priority}</h2>
@@ -32,46 +35,53 @@ function displayIssues(data) {
                     <p>${new Date(data.createdAt).toLocaleDateString()}</p>
                 </div>
                 </div>`;
-    allIssuesContainer.appendChild(div);
-  });
+        allIssuesContainer.appendChild(div);
+    });
+    hideLoading();
 }
 
 const labels = (arr) => {
-  const newHtml = arr.map(
-    (item) =>
-      `<span class="text-[#7f6e5a] bg-[#FDE68A] rounded-full py-2 px-5 font-medium text-xs">${item}</span>`,
-  );
-  return newHtml.join(" ");
+    const newHtml = arr.map(
+        (item) =>
+            `<span class="text-[#7f6e5a] bg-[#FDE68A] rounded-full py-2 px-5 font-medium text-xs">${item}</span>`,
+    );
+    return newHtml.join(" ");
 };
 
 function updateCount(count) {
-  document.getElementById("issue-count").innerText = count;
+    document.getElementById("issue-count").innerText = count;
 }
 
 function filterIssues(status, event) {
-  document
-    .querySelectorAll(".btns")
-    .forEach((btn) => btn.classList.remove("btn-primary"));
-  event.target.classList.add("btn-primary");
+    showLoading();
+    setTimeout(() => {
+        document
+            .querySelectorAll(".btns")
+            .forEach((btn) => btn.classList.remove("btn-primary"));
+        event.target.classList.add("btn-primary");
 
-  const filtered =
-    status === "all"
-      ? allIssues
-      : allIssues.filter((issue) => issue.status === status);
+        const filtered =
+            status === "all"
+                ? allIssues
+                : allIssues.filter((issue) => issue.status === status);
 
-  displayIssues(filtered);
-  updateCount(filtered.length);
+        displayIssues(filtered);
+        updateCount(filtered.length);
+
+        hideLoading();
+    }, 300);
 }
 
 function loadModal(id) {
-  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
-    .then((res) => res.json())
-    .then((data) => displayModal(data.data));
+    showLoading();
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+        .then((res) => res.json())
+        .then((data) => displayModal(data.data));
 }
 
 function displayModal(card) {
-  const modalContainer = document.getElementById("modalContainer");
-  modalContainer.innerHTML = `
+    const modalContainer = document.getElementById("modalContainer");
+    modalContainer.innerHTML = `
     <h2 class="text-[24px] font-bold">${card.title}</h2>
                 <div class="flex gap-4">
                     <p class="badge ${card.status === "open" ? "bg-green-500" : "bg-red-500"} text-white text-[12px] rounded-full">${card.status}</p>
@@ -94,7 +104,34 @@ function displayModal(card) {
                 </div>
     `;
 
-  document.getElementById("my_modal_5").showModal();
+    document.getElementById("my_modal_5").showModal();
+    hideLoading();
+}
+
+async function searchIssues(event) {
+    showLoading();
+    const searchText = event.target.value.toLowerCase();
+
+    if (searchText.trim() === "") {
+        displayIssues(allIssues);
+        updateCount(allIssues.length);
+        return;
+    } else {
+        const res = await fetch(
+            `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`,
+        );
+        const data = await res.json();
+        displayIssues(data.data);
+        updateCount(data.data.length);
+    }
+    hideLoading();
+}
+
+function showLoading() {
+    loadingSpinner.classList.remove("hidden");
+}
+function hideLoading() {
+    loadingSpinner.classList.add("hidden");
 }
 
 loadIssues();

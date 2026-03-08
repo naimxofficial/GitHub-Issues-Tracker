@@ -28,7 +28,8 @@
             <h2 class="lg:text-2xl font-semibold">GitHub Issues Tracker</h2>
         </div>
         <div class="lg:flex gap-1 items-center">
-            <input type="text" placeholder="🔍 Search issues..." class="input input-bordered w-full md:w-auto" />
+            <input oninput="searchIssues(event)" type="text" placeholder="🔍 Search issues..."
+                class="input input-bordered w-full md:w-auto" />
             <button class="btn btn-xs sm:btn-sm md:btn-md  btn-primary">+ New Issue</button>
         </div>
     </header>
@@ -59,6 +60,11 @@
                 <h2 class="font-medium">Closed</h2>
             </div>
         </section>
+
+        <!-- loading spinner -->
+        <div id="loadingSpinner" class=" justify-center items-center h-[50vh] flex hidden">
+            <span class="loading w-[50px] loading-spinner text-primary"></span>
+        </div>
 
         <!-- Cards -->
         <section>
@@ -93,16 +99,16 @@
         <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
         <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
             <div id="modalContainer" class="bg-white p-6 rounded-xl">
-                
-           
-            
+
+
+
                 <div class="modal-action">
                     <form method="dialog">
                         <!-- if there is a button in form, it will close the modal -->
                         <button class="btn">Close</button>
                     </form>
                 </div>
-                 </div>
+            </div>
         </dialog>
 
     </main>
