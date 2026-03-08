@@ -35,10 +35,10 @@
 
     <main class="bg-[#F8FAFC] container w-11/12 mx-auto space-y-4">
         <!-- Tab bar -->
-        <section class="p-4 flex gap-2 bg-white items-center rounded-lg drop-shadow-lg">
-            <button class="btn btn-primary">All</button>
-            <button class="btn">Open</button>
-            <button class="btn">Closed</button>
+        <section id="tab" class="p-4 flex gap-2 bg-white items-center rounded-lg drop-shadow-lg">
+            <button onclick="filterIssues('all',event)" class="btn btn-primary btns">All</button>
+            <button onclick="filterIssues('open',event)" class="btn btns">Open</button>
+            <button onclick="filterIssues('closed',event)" class="btn btns">Closed</button>
         </section>
 
         <!-- Issues bar -->
@@ -46,7 +46,7 @@
             <div class="flex gap-2 items-center">
                 <img src="./assets/Aperture.png" alt="" class="bg-[#ECE4FF] rounded-full p-2">
                 <div class="">
-                    <h2 class="font-semibold text-lg">50 Issues</h2>
+                    <h2 class="font-semibold text-lg"><span id="issue-count"></span> Issues</h2>
                     <p class="text-[#64748B]">Track and manage your project issues</p>
                 </div>
             </div>
@@ -61,8 +61,9 @@
         </section>
 
         <!-- Cards -->
-        <section class="bg-[#FBFBFB] grid grid-cols-1 lg:grid-cols-4 gap-3 p-3">
-            <div class="border-t-4 border-t-[#00A96E] rounded-sm p-4 space-y-3 bg-white drop-shadow-sm">
+        <section>
+            <div id="allIssuesContainer" class="bg-[#FBFBFB] grid grid-cols-1 lg:grid-cols-4 gap-3 p-3"></div>
+            <!-- <div class="border-t-4 border-t-[#00A96E] rounded-sm p-4 space-y-3 bg-white drop-shadow-sm">
                 <div class=" flex items-center justify-between ">
                     <img src="./assets/Open-Status.png" alt="">
                     <h2 class="text-[#EF4444] bg-[#FEECEC] rounded-full py-2 px-5 font-medium text-xs">HIGH</h2>
@@ -84,9 +85,26 @@
                     <p>1/15/2024</p>
                 </div>
 
-            </div>
-            
+            </div> -->
+
         </section>
+
+        <!-- Open the modal using ID.showModal() method -->
+        <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+            <div id="modalContainer" class="bg-white p-6 rounded-xl">
+                
+           
+            
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn">Close</button>
+                    </form>
+                </div>
+                 </div>
+        </dialog>
+
     </main>
 
     <script src="./script.js"></script>
