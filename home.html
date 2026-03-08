@@ -22,10 +22,10 @@
 </head>
 
 <body>
-    <header class="navbar bg-white shadow-sm flex justify-between items-center p-4 mb-6">
+    <header class="navbar bg-white shadow-sm flex justify-between items-center p-4 mb-6 gap-1">
         <div class="flex justify-between items-center gap-1">
             <i class="fa-brands fa-github text-4xl"></i>
-            <h2 class="lg:text-2xl font-semibold">GitHub Issues Tracker</h2>
+            <h2 class="lg:text-2xl font-semibold text-xl">GitHub Issues Tracker</h2>
         </div>
         <div class="lg:flex gap-1 items-center">
             <input oninput="searchIssues(event)" type="text" placeholder="🔍 Search issues..."
@@ -37,13 +37,13 @@
     <main class="bg-[#F8FAFC] container w-11/12 mx-auto space-y-4">
         <!-- Tab bar -->
         <section id="tab" class="p-4 flex gap-2 bg-white items-center rounded-lg drop-shadow-lg">
-            <button onclick="filterIssues('all',event)" class="btn btn-primary btns">All</button>
+            <button onclick="filterIssues('all',event)" class="btn px-10 btn-primary btns">All</button>
             <button onclick="filterIssues('open',event)" class="btn btns">Open</button>
             <button onclick="filterIssues('closed',event)" class="btn btns">Closed</button>
         </section>
 
         <!-- Issues bar -->
-        <section class="bg-white p-4 flex items-center justify-between">
+        <section class="bg-white p-4 flex items-center justify-between drop-shadow-sm">
             <div class="flex gap-2 items-center">
                 <img src="./assets/Aperture.png" alt="" class="bg-[#ECE4FF] rounded-full p-2">
                 <div class="">
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1 not-sm:ml-2">
                 <span class="p-1.5 rounded-full bg-[#00A96E]"></span>
                 <h2 class="font-medium">Open</h2>
                 <br>
